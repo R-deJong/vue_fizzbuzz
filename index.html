@@ -1,0 +1,78 @@
+<h1>Test fizzbuzz applicatie met Vue</h1>
+
+<p>Fizzbuzz is een simpel algoritme dat vaak gebruikt wordt voor interviews.
+    Met fizzbuzz maak je een lijst van 1 tot en met 100. Hierbij vervang je elk getal deelbaar door 3 met fizz en 5 met
+    buzz.
+    Als iets deelbaar is door meerdere getallen dan krijg je meerdere woorden die het getal vervangen. Bijvoorbeeld 15
+    zou vervangen worden door fizzbuzz.
+    Deze implementatie hiervan is uitbreidbaar met meerdere woorden.
+
+</p>
+
+<div id="fizzbuzz">
+
+    <!--Toevoegen van nieuw woord -->
+    <div id="newWord">
+        <input id="inputtext" type="text" placeholder="woord" v-model="newWord.text">
+        <input id="inputnumber" type="number" placeholder="aantal" v-model="newWord.value">
+        <button @click="addWord">Add word</button>
+    </div>
+
+    <!--Lijst van woorden -->
+    <div id="wordlist">
+        <ul>
+            <li v-for="word in wordlist">
+                {{word.text}} {{word.value}}
+                <button @click="wordlist.pop(word)">Remove</button>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Lijst van getallen, vervangen met woorden-->
+    <div id="numbers">
+        <div v-for="n in 100">
+        <!-- <div v-for="n in 1"> -->
+            {{printWord(n)}}
+        </div>
+    </div>
+</div>
+
+
+<!-- -->
+<!---->
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+<script>
+    var app = new Vue({
+        el: '#fizzbuzz',
+        data: {
+            wordlist: [{ text: "fizz", value: 3 }, { text: "buzz", value: 5 }],
+            newWord: {text: null, value: null}
+        },
+        methods: {
+            addWord(){
+                //bind de input velden direct aan object newWord
+                this.wordlist.push(this.newWord);
+            },
+            printWord(n){
+                let returnString = "";
+                // console.log(this.wordlist);
+                // for(word in this.wordlist){
+                //     console.debug(typeof(word));
+                //     if (n % word.value == 0){
+                //         returnString.concat(word.text);
+                //     }
+                // }
+                this.wordlist.forEach(word => {
+                    if (n % word.value == 0){
+                        returnString += word.text;
+                    } 
+                });
+                if (returnString == ""){
+                    returnString = n;
+                }
+                return returnString;
+            }
+        }
+    })
+</script>
