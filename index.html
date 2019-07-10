@@ -37,11 +37,8 @@
     </div>
 </div>
 
-
-<!-- -->
-<!---->
+<!-- Inladen van de vue library -->
 <script src="https://cdn.jsdelivr.net/npm/vue"></script>
-
 <script>
     var app = new Vue({
         el: '#fizzbuzz',
@@ -50,24 +47,22 @@
             newWord: {text: null, value: null}
         },
         methods: {
+            // Toevoegen van een woord
             addWord(){
-                //bind de input velden direct aan object newWord
                 this.wordlist.push(this.newWord);
             },
+            // Methode voor het weergeven van een nummer, soms vervangen met woorden uit woordenlijst
             printWord(n){
                 let returnString = "";
-                // console.log(this.wordlist);
-                // for(word in this.wordlist){
-                //     console.debug(typeof(word));
-                //     if (n % word.value == 0){
-                //         returnString.concat(word.text);
-                //     }
-                // }
+                // Kijkt voor elk woord in de woordenlijst of het nummer deelbaar is door de waarde van dit woord
+                // Als het nummer deelbaar is dan wordt het woord toegevoegd aan de uitvoer
                 this.wordlist.forEach(word => {
                     if (n % word.value == 0){
                         returnString += word.text;
                     } 
                 });
+                // Als de uitvoer leeg is dan is er geen woord in de woordenlijst deelbaar door dit nummer
+                // Dan wordt het nummer weergegeven
                 if (returnString == ""){
                     returnString = n;
                 }
